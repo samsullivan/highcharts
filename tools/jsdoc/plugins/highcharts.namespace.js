@@ -345,7 +345,7 @@ function getParameters (doclet) {
     if (!doclet.params) {
         return undefined;
     }
-    console.log(doclet.params);
+
     let parameters = {};
 
     (doclet.params || []).forEach(item => {
