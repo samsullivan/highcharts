@@ -44,10 +44,12 @@ let allDocletPropertyNames = [],
 
 /**
  * Returns true, if the doclet is part of the Highcharts options.
- * @param {JSDoclet} doclet
- * JSDoc doclet to analyze.
- * @returns {boolean}
- * True, if the doclet is from a Highcharts option.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet to analyze.
+ *
+ * @return {boolean}
+ *         True, if the doclet is from a Highcharts option.
  */
 function isApiOption (doclet) {
 
@@ -73,10 +75,12 @@ function isApiOption (doclet) {
 
 /**
  * Returns true, if the doclet is part of a private member tree.
- * @param {JSDoclet} doclet
- * JSDoc doclet to analyze.
- * @returns {boolean}
- * True, if the doclet is a part of a private member tree.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet to analyze.
+ *
+ * @return {boolean}
+ *         True, if the doclet is a part of a private member tree.
  */
 function isPrivate (doclet) {
 
@@ -98,10 +102,12 @@ function isPrivate (doclet) {
 
 /**
  * Returns true, if the doclet is a static member.
- * @param {JSDoclet} doclet
- * JSDoc doclet to analyze.
- * @returns {boolean}
- * True, if the doclet is a static member.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet to analyze.
+ *
+ * @return {boolean}
+ *         True, if the doclet is a static member.
  */
 function isStatic (doclet) {
 
@@ -110,10 +116,12 @@ function isStatic (doclet) {
 
 /**
  * Returns true, if the doclet in undocumented.
- * @param {JSDoclet} doclet
- * JSDoc doclet to analyze.
- * @returns {boolean}
- * True, if the doclet is undocumented.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet to analyze.
+ *
+ * @return {boolean}
+ *         True, if the doclet is undocumented.
  */
 function isUndocumented (doclet) {
 
@@ -128,10 +136,12 @@ function isUndocumented (doclet) {
 
 /**
  * Removes unnecessary name fragments
- * @param {string} name
- * Name to filter.
- * @returns {string}
- * Filtered name.
+ *
+ * @param  {string} name
+ *         Name to filter.
+ *
+ * @return {string}
+ *         Filtered name.
  */
 function getClearName (name) {
 
@@ -148,10 +158,12 @@ function getClearName (name) {
 
 /**
  * Returns the description of the doclet.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
- * @returns {string}
- * Description of the doclet.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {string}
+ *         Description of the doclet.
  */
 function getDescription (doclet) {
 
@@ -188,10 +200,12 @@ function getDescription (doclet) {
 
 /**
  * Returns the kind of the doclet.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
- * @returns {string}
- * Kind of the doclet.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {string}
+ *         Kind of the doclet.
  */
 function getKind (doclet) {
 
@@ -200,10 +214,12 @@ function getKind (doclet) {
 
 /**
  * Returns a light doclet object of the doclet.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
- * @returns {NodeDoclet}
- * Doclet information of the source.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {NodeDoclet}
+ *         Doclet information of the source.
  */
 function getLightDoclet (doclet) {
 
@@ -243,10 +259,12 @@ function getLightDoclet (doclet) {
 
 /**
  * Returns a ligh meta object of the doclet.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
- * @returns {NodeMeta}
- * Meta information of the source.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {NodeMeta}
+ *         Meta information of the source.
  */
 function getLightMeta (doclet) {
 
@@ -263,10 +281,12 @@ function getLightMeta (doclet) {
 
 /**
  * Returns the full name of the doclet.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
- * @returns {string}
- * Full name.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {string}
+ *         Full name.
  */
 function getName (doclet) {
 
@@ -313,17 +333,19 @@ function getName (doclet) {
 
 /**
  * Returns a name-based dictionary with parameter description and types.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
- * @returns {object}
- * Parameter dictionary.
+ *
+ * @param   {JSDoclet} doclet
+ *          JSDoc doclet source.
+ *
+ * @return {object}
+ *          Parameter dictionary.
  */
 function getParameters (doclet) {
 
     if (!doclet.params) {
         return undefined;
     }
-
+    console.log(doclet.params);
     let parameters = {};
 
     (doclet.params || []).forEach(item => {
@@ -338,6 +360,10 @@ function getParameters (doclet) {
             parameters[item.name].description = item.description;
         }
 
+        if (item.optional) {
+            parameters[item.name].isOptional = true;
+        }
+
         if (item.type) {
             parameters[item.name].types = item.type.names.slice();
         }
@@ -348,10 +374,12 @@ function getParameters (doclet) {
 
 /**
  * Returns the possible return types of the doclet.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
- * @returns {Array<string>}
- * Possible return types.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {Array<string>}
+ *         Possible return types.
  */
 function getReturn (doclet) {
 
@@ -383,10 +411,12 @@ function getReturn (doclet) {
 
 /**
  * Returns the possible types of the doclet.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
- * @returns {Array<string>}
- * Possible types.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {Array<string>}
+ *         Possible types.
  */
 function getTypes (doclet) {
 
@@ -420,12 +450,14 @@ function getTypes (doclet) {
 
 /**
  * Returns a merged array with unique items.
- * @param {Array} array1
- * First array to merge.
- * @param {Array} array2
- * Second array to merge.
- * @returns {Array}
- * Merged array.
+ *
+ * @param  {Array} array1
+ *         First array to merge.
+ * @param  {Array} array2
+ *         Second array to merge.
+ *
+ * @return {Array}
+ *         Merged array.
  */
 function getUniqueArray(array1, array2) {
 
@@ -465,10 +497,12 @@ function finalizeNodes (node) {
 
 /**
  * Updates corresponding node in the tree with information from the doclet.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
- * @returns {Node}
- * Updated node.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {Node}
+ *         Updated node.
  */
 function updateNodeFor (doclet) {
 
@@ -539,8 +573,11 @@ function updateNodeFor (doclet) {
 
 /**
  * Adds the doclet as a class node to the tree.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {void}
  */
 function addClass (doclet) {
 
@@ -553,8 +590,11 @@ function addClass (doclet) {
 
 /**
  * Adds the doclet as a function node to the tree.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {void}
  */
 function addFunction (doclet) {
 
@@ -571,8 +611,11 @@ function addFunction (doclet) {
 
 /**
  * Adds the doclet as a member node to the tree.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {void}
  */
 function addMember (doclet) {
 
@@ -585,8 +628,11 @@ function addMember (doclet) {
 
 /**
  * Adds the doclet as a namespace node to the tree.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {void}
  */
 function addNamespace (doclet) {
 
@@ -595,8 +641,11 @@ function addNamespace (doclet) {
 
 /**
  * Adds the doclet as a type definition to the tree.
- * @param {JSDoclet} doclet
- * JSDoc doclet source.
+ *
+ * @param  {JSDoclet} doclet
+ *         JSDoc doclet source.
+ *
+ * @return {void}
  */
 function addTypeDef (doclet) {
 
@@ -633,8 +682,11 @@ function addTypeDef (doclet) {
 /**
  * The parseBegin event is fired before JSDoc starts loading and parsing the
  * source files.
- * @param {Event} e
- * JSDoc event.
+ *
+ * @param  {Event} e
+ *         JSDoc event.
+ *
+ * @return {void}
  */
 function parseBegin (e) {
 
@@ -655,8 +707,11 @@ function parseBegin (e) {
 
 /**
  * The fileBegin event is fired when the parser is about to parse a file.
- * @param {Event} e
- * JSDoc event.
+ *
+ * @param  {Event} e
+ *         JSDoc event.
+ *
+ * @return {void}
  */
 function fileBegin (e) {
 
@@ -669,8 +724,11 @@ function fileBegin (e) {
 
 /**
  * The newDoclet event is fired when a new doclet has been created.
- * @param {Event} e
- * JSDoc event.
+ *
+ * @param  {Event} e
+ *         JSDoc event.
+ *
+ * @return {void}
  */
 function newDoclet (e) {
 
@@ -717,8 +775,11 @@ function newDoclet (e) {
 
 /**
  * The fileComplete event is fired when the parser has finished parsing a file.
- * @param {Event} e
- * JSDoc event.
+ *
+ * @param  {Event} e
+ *         JSDoc event.
+ *
+ * @return {void}
  */
 function fileComplete (e) {
 
@@ -728,8 +789,11 @@ function fileComplete (e) {
 /**
  * The processingComplete event is fired after JSDoc updates the parse results
  * to reflect inherited and borrowed symbols.
- * @param {Event} e
- * JSDoc event.
+ *
+ * @param  {Event} e
+ *         JSDoc event.
+ *
+ * @return {void}
  */
 function processingComplete (e) {
 
@@ -744,8 +808,11 @@ function processingComplete (e) {
 /**
  * Adding tags to the tag dictionary is a mid-level way to affect documentation
  * generation.
- * @param {object} dictionary
- * JSDoc tags dictionary.
+ *
+ * @param  {any} dictionary
+ *         JSDoc tags dictionary.
+ *
+ * @return {void}
  */
 exports.defineTags = function (dictionary) {
 
