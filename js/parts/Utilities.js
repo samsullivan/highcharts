@@ -60,7 +60,7 @@ H.error = function (code, stop) {
  * (attribute or style prop) on one element. Animation is always initiated
  * through {@link SVGElement#animate}.
  *
- * @privateoff
+ * @private
  * @class Highcharts.Fx
  *
  * @param  {Highcharts.HTMLDOMElement|Highcharts.SVGElement} elem
