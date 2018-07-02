@@ -60,7 +60,7 @@ H.error = function (code, stop) {
  * (attribute or style prop) on one element. Animation is always initiated
  * through {@link SVGElement#animate}.
  *
- * @private
+ * @privateoff
  * @class Highcharts.Fx
  *
  * @param  {Highcharts.HTMLDOMElement|Highcharts.SVGElement} elem
@@ -86,7 +86,7 @@ H.Fx.prototype = {
     /**
      * Set the current step of a path definition on SVGElement.
      *
-     * @function Fx#dSetter
+     * @function Highcharts.Fx#dSetter
      *
      * @return {void}
      */
@@ -121,7 +121,7 @@ H.Fx.prototype = {
     /**
      * Update the element with the current animation step.
      *
-     * @function Fx#update
+     * @function Highcharts.Fx#update
      *
      * @return {void}
      */
@@ -155,7 +155,7 @@ H.Fx.prototype = {
     /**
      * Run an animation.
      *
-     * @function Fx#run
+     * @function Highcharts.Fx#run
      *
      * @param  {number} from
      *         The current value, value to start from.
@@ -216,7 +216,7 @@ H.Fx.prototype = {
     /**
      * Run a single step in the animation.
      *
-     * @function Fx#step
+     * @function Highcharts.Fx#step
      *
      * @param  {boolean} [gotoEnd]
      *         Whether to go to the endpoint of the animation after abort.
@@ -269,7 +269,7 @@ H.Fx.prototype = {
     /**
      * Prepare start and end values so that the path can be animated one to one.
      *
-     * @function Fx#initPath
+     * @function Highcharts.Fx#initPath
      *
      * @param  {Highcharts.SVGElement} elem
      *         The SVGElement item.
@@ -438,21 +438,33 @@ H.Fx.prototype = {
         }
 
         return [start, end];
+    },
+
+    /**
+     * Handle animation of the color attributes directly.
+     *
+     * @function Highcharts.Fx#fillSetter
+     */
+    fillSetter: function () {
+        H.Fx.prototype.strokeSetter.apply(this, arguments);
+    },
+
+    /**
+     * Handle animation of the color attributes directly.
+     *
+     * @function Highcharts.Fx#strokeSetter
+     */
+    strokeSetter: function () {
+        this.elem.attr(
+            this.prop,
+            H.color(this.start).tweenTo(H.color(this.end), this.pos),
+            null,
+            true
+        );
     }
+
 }; // End of Fx prototype
 
-/**
- * Handle animation of the color attributes directly.
- */
-H.Fx.prototype.fillSetter =
-H.Fx.prototype.strokeSetter = function () {
-    this.elem.attr(
-        this.prop,
-        H.color(this.start).tweenTo(H.color(this.end), this.pos),
-        null,
-        true
-    );
-};
 
 
 /**
