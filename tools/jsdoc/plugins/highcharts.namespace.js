@@ -241,6 +241,10 @@ function getLightDoclet (doclet) {
         lightDoclet.defaultValue = doclet.defaultvalue;
     }
 
+    if (typeof doclet.see !== 'undefined') {
+        lightDoclet.see = doclet.see;
+    }
+
     if (isPrivate(doclet)) {
         lightDoclet.isPrivate = true;
     }
