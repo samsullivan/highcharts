@@ -3033,10 +3033,13 @@ H.defaultOptions = {
          * `Highcharts @ {map-credits}`. Otherwise, it defaults to
          * `Highcharts.com`.
          *
-         * @type {String}
-         * @sample {highcharts} highcharts/credits/href/ Custom URL and text
-         * @sample {highmaps} maps/credits/customized/ Custom URL and text
+         * @type {string}
+         *
          * @default {highcharts|highstock} Highcharts.com
+         *
+         * @sample {highcharts} highcharts/credits/href/ Custom URL and text
+         *
+         * @sample {highmaps} maps/credits/customized/ Custom URL and text
          */
         text: 'Highcharts.com'
     }
@@ -3046,12 +3049,17 @@ H.defaultOptions = {
  * Merge the default options with custom options and return the new options
  * structure. Commonly used for defining reusable templates.
  *
- * @function #setOptions
- * @memberof Highcharts
+ * @function Highcharts.setOptions
+ *
+ * @param  {Highcharts.Options} options
+ *         The new custom chart options.
+ *
+ * @return {Highcharts.Options}
+ *         Updated options.
+ *
  * @sample highcharts/global/useutc-false Setting a global option
+ *
  * @sample highcharts/members/setoptions Applying a global theme
- * @param {Object} options The new custom chart options.
- * @returns {Object} Updated options.
  */
 H.setOptions = function (options) {
 
@@ -3071,6 +3079,10 @@ H.setOptions = function (options) {
  * Get the updated default options. Until 3.0.7, merely exposing defaultOptions
  * for outside modules wasn't enough because the setOptions method created a new
  * object.
+ *
+ * @function Highcharts.getOptions
+ *
+ * @return {Highcharts.Options}
  */
 H.getOptions = function () {
     return H.defaultOptions;
@@ -3087,22 +3099,27 @@ H.time = new H.Time(merge(H.defaultOptions.global, H.defaultOptions.time));
 /**
  * Formats a JavaScript date timestamp (milliseconds since Jan 1st 1970) into a
  * human readable date string. The format is a subset of the formats for PHP's
- * [strftime]{@link
- * http://www.php.net/manual/en/function.strftime.php} function. Additional
- * formats can be given in the {@link Highcharts.dateFormats} hook.
+ * {@link http://www.php.net/manual/en/function.strftime.php|strftime} function.
+ * Additional formats can be given in the {@link Highcharts.dateFormats} hook.
  *
- * Since v6.0.5, all internal dates are formatted through the
- * [Chart.time](Chart#time) instance to respect chart-level time settings. The
- * `Highcharts.dateFormat` function only reflects global time settings set with
- * `setOptions`.
+ * Since v6.0.5, all internal dates are formatted through the {@link Chart#time}
+ * instance to respect chart-level time settings. The `Highcharts.dateFormat`
+ * function only reflects global time settings set with `setOptions`.
  *
- * @function #dateFormat
- * @memberof Highcharts
- * @param {String} format - The desired format where various time
- *        representations are prefixed with %.
- * @param {Number} timestamp - The JavaScript timestamp.
- * @param {Boolean} [capitalize=false] - Upper case first letter in the return.
- * @returns {String} The formatted date.
+ * @function Highcharts.dateFormat
+
+ * @param  {string} format
+ *         The desired format where various time representations are prefixed
+ *         with %.
+ *
+ * @param  {number} timestamp
+ *         The JavaScript timestamp.
+ *
+ * @param  {boolean} [capitalize=false]
+ *         Upper case first letter in the return.
+ *
+ * @return {string}
+ *         The formatted date.
  */
 H.dateFormat = function (format, timestamp, capitalize) {
     return H.time.dateFormat(format, timestamp, capitalize);
