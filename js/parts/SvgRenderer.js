@@ -84,7 +84,7 @@ extend(SVGElement.prototype, /** @lends Highcharts.SVGElement.prototype */ {
      */
     textProps: ['direction', 'fontSize', 'fontWeight', 'fontFamily',
         'fontStyle', 'color', 'lineHeight', 'width', 'textAlign',
-        'textDecoration', 'textOverflow', 'textOutline'],
+        'textDecoration', 'textOverflow', 'textOutline', 'cursor'],
 
     /**
      * Initialize the SVG element. This function only exists to make the
@@ -2025,24 +2025,25 @@ extend(SVGRenderer.prototype, /** @lends Highcharts.SVGRenderer.prototype */ {
 
         /**
          * The root `svg` node of the renderer.
-         * @name box
-         * @memberof SVGRenderer
-         * @type {SVGDOMElement}
+         *
+         * @name Highcharts.SVGRenderer#box
+         * @type {Highcharts.SVGDOMElement}
          */
         this.box = element;
         /**
          * The wrapper for the root `svg` node of the renderer.
-         * @name boxWrapper
-         * @memberof SVGRenderer
-         * @type {SVGElement}
+         *
+         * @name Highcharts.SVGRenderer#boxWrapper
+         * @type {Highcharts.SVGElement}
          */
         this.boxWrapper = boxWrapper;
         renderer.alignedObjects = [];
 
         /**
          * Page url used for internal references.
-         * @name url
-         * @memberOf SVGRenderer
+         *
+         * @private
+         * @name Highcharts.SVGRenderer#url
          * @type {string}
          */
         // #24, #672, #1070
@@ -2051,7 +2052,7 @@ extend(SVGRenderer.prototype, /** @lends Highcharts.SVGRenderer.prototype */ {
                 doc.getElementsByTagName('base').length
             ) ?
                 win.location.href
-                    .replace(/#.*?$/, '') // remove the hash
+                    .split('#')[0] // remove the hash
                     .replace(/<[^>]*>/g, '') // wing cut HTML
                     // escape parantheses and quotes
                     .replace(/([\('\)])/g, '\\$1')
@@ -2067,9 +2068,9 @@ extend(SVGRenderer.prototype, /** @lends Highcharts.SVGRenderer.prototype */ {
 
         /**
          * A pointer to the `defs` node of the root SVG.
+         *
+         * @name Highcharts.SVGRenderer#defs
          * @type {SVGElement}
-         * @name defs
-         * @memberof SVGRenderer
          */
         renderer.defs = this.createElement('defs').add();
         renderer.allowHTML = allowHTML;

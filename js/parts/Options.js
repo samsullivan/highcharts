@@ -368,7 +368,7 @@ H.defaultOptions = {
          *
          * </dl>
          *
-         * @type {Boolean|Object}
+         * @type {Boolean|AnimationOptions}
          * @sample {highcharts} highcharts/chart/animation-none/
          *         Updating with no animation
          * @sample {highcharts} highcharts/chart/animation-duration/
@@ -552,7 +552,7 @@ H.defaultOptions = {
          * subtitle and legend in addition to the `spacingTop`, `spacingRight`,
          * `spacingBottom` and `spacingLeft` options.
          *
-         * @type {Array}
+         * @type {Array<number>}
          * @sample {highcharts} highcharts/chart/margins-zero/
          *         Zero margins
          * @sample {highstock} stock/chart/margin-zero/
@@ -708,7 +708,6 @@ H.defaultOptions = {
         /**
          * Alias of `type`.
          *
-         * @validvalue ["line", "spline", "column", "area", "areaspline", "pie"]
          * @type {String}
          * @deprecated
          * @sample {highcharts} highcharts/chart/defaultseriestype/ Bar
@@ -1586,7 +1585,7 @@ H.defaultOptions = {
     labels: {
 
         /**
-         * A HTML label that can be positioned anywhere in the chart area.
+         * An HTML label that can be positioned anywhere in the chart area.
          *
          * @type {Array<Object>}
          * @apioption labels.items
@@ -1915,7 +1914,7 @@ H.defaultOptions = {
              * `chart.animation` option. Additional options can be given as an
              * object containing values for easing and duration.
              *
-             * @type {Boolean|Object}
+             * @type {Boolean|AnimationObject}
              * @sample {highcharts} highcharts/legend/navigation/
              *         Legend page navigation demonstrated
              * @sample {highstock} highcharts/legend/navigation/
@@ -2540,6 +2539,23 @@ H.defaultOptions = {
          */
 
         /**
+         * Whether to allow the tooltip to render outside the chart's SVG
+         * element box. By default (`false`), the tooltip is rendered within the
+         * chart's SVG element, which results in the tooltip being aligned
+         * inside the chart area. For small charts, this may result in clipping
+         * or overlapping. When `true`, a separate SVG element is created and
+         * overlaid on the page, allowing the tooltip to be aligned inside the
+         * page itself.
+         *
+         * @type {Boolean}
+         * @sample highcharts/tooltip/outside
+         *         Small charts with tooltips outside
+         * @default false
+         * @since 6.1.1
+         * @apioption tooltip.outside
+         */
+
+        /**
          * A callback function for formatting the HTML output for a single point
          * in the tooltip. Like the `pointFormat` string, but with more
          * flexibility.
@@ -2870,9 +2886,9 @@ H.defaultOptions = {
          *
          * @type {String}
          * @sample {highcharts} highcharts/tooltip/footerformat/
-         *         A HTML table in the tooltip
+         *         An HTML table in the tooltip
          * @sample {highstock} highcharts/tooltip/footerformat/
-         *         A HTML table in the tooltip
+         *         An HTML table in the tooltip
          * @sample {highmaps} maps/tooltip/format/ Format demo
          */
         headerFormat: '<span style="font-size: 10px">{point.key}</span><br/>',

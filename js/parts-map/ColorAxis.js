@@ -64,7 +64,7 @@ if (!H.ColorAxis) {
          * See [the Axis object](/class-reference/Highcharts.Axis) for
          * programmatic access to the axis.
          *
-         * @extends {xAxis}
+         * @extends xAxis
          * @excluding allowDecimals,alternateGridColor,breaks,categories,
          *            crosshair,dateTimeLabelFormats,lineWidth,linkedTo,maxZoom,
          *            minRange,minTickInterval,offset,opposite,plotBands,
@@ -293,7 +293,7 @@ if (!H.ColorAxis) {
                  * Animation for the marker as it moves between values. Set to
                  * `false` to disable animation. Defaults to `{ duration: 50 }`.
                  *
-                 * @type {Object|Boolean}
+                 * @type {AnimationOptions|Boolean}
                  * @product highcharts highmaps
                  */
                 animation: {

@@ -27,7 +27,7 @@ var each = H.each,
 
 /**
  * isRectanglesIntersecting - Detects if there is a collision between two
- *     rectangles.
+ *                            rectangles.
  *
  * @param  {object} r1 First rectangle.
  * @param  {object} r2 Second rectangle.
@@ -44,7 +44,7 @@ var isRectanglesIntersecting = function isRectanglesIntersecting(r1, r2) {
 
 /**
  * intersectsAnyWord - Detects if a word collides with any previously placed
- *     words.
+ *                     words.
  *
  * @param  {Point} point Point which the word is connected to.
  * @param  {Array} points Previously placed points to check against.
@@ -198,7 +198,7 @@ var getRandomPosition = function getRandomPosition(size) {
 
 /**
  * getScale - Calculates the proper scale to fit the cloud inside the plotting
- *     area.
+ *            area.
  *
  * @param  {number} targetWidth  Width of target area.
  * @param  {number} targetHeight Height of target area.
@@ -403,7 +403,7 @@ var updateFieldBoundaries = function updateFieldBoundaries(field, rectangle) {
  * A word cloud is a visualization of a set of words, where the size and
  * placement of a word is determined by how it is weighted.
  *
- * @extends {plotOptions.column}
+ * @extends plotOptions.column
  * @sample highcharts/demo/wordcloud Word Cloud chart
  * @excluding allAreas, boostThreshold, clip, colorAxis, compare, compareBase,
  *            crisp, cropTreshold, dataGrouping, dataLabels, depth, edgeColor,
@@ -475,7 +475,7 @@ var wordCloudOptions = {
     },
     showInLegend: false,
     /**
-     * Spiral used for placing a word after the inital position experienced a
+     * Spiral used for placing a word after the initial position experienced a
      * collision with either another word or the borders.
      * It is possible for users to add their own custom spiralling algorithms
      * for use in word cloud. Read more about it in our
@@ -713,7 +713,7 @@ var wordCloudSeries = {
     /**
      * Strategies used for deciding rotation and initial position of a word.
      * To implement a custom strategy, have a look at the function
-     *     randomPlacement for example.
+     * randomPlacement for example.
      */
     placementStrategy: {
         random: function randomPlacement(point, options) {
@@ -736,10 +736,9 @@ var wordCloudSeries = {
     },
     pointArrayMap: ['weight'],
     /**
-     * Spirals used for placing a word after the inital position experienced a
-     *     collision with either another word or the borders.
-     * To implement a custom spiral, look at the function archimedeanSpiral for
-     *    example.
+     * Spirals used for placing a word after the initial position experienced a
+     * collision with either another word or the borders. To implement a custom
+     * spiral, look at the function archimedeanSpiral for example.
      */
     spirals: {
         'archimedean': archimedeanSpiral,
