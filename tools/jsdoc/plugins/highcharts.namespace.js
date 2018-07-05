@@ -388,14 +388,10 @@ function getParameters (doclet) {
 function getReturn (doclet) {
 
     let returnObj = {
-        types: [ 'void' ]
+        types: []
     };
 
     (doclet.returns || []).forEach(item => {
-
-        if (!item.name) {
-            return;
-        }
 
         if (item.description) {
             returnObj.description = (
@@ -403,12 +399,16 @@ function getReturn (doclet) {
             );
         }
 
-        if (item.type) {
-            returnObj.types = (
-                (returnObj.types || []).concat(...item.type.slice())
+        if (item.type && item.type.names) {
+            returnObj.types = (returnObj.types || []).concat(
+                ...item.type.names.slice()
             );
         }
     });
+
+    if (returnObj.types.length === 0) {
+        returnObj.types.push('void');
+    }
 
     return returnObj;
 }
