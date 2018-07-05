@@ -171,30 +171,30 @@ function getDescription (doclet) {
         return doclet.highchartsDescription;
     }
 
-    let description = (doclet.description || doclet.comment || '');
+    let description = (doclet.Description || '');
 
-    if (description.indexOf('(c)') >= 0) {
-        // found only a file header with the copyright line
-        return '';
-    }
+    if (!description) {
 
-    try {
+        description = doclet.comment;
 
         let tagPosition = description.indexOf(' @');
 
         if (tagPosition >= 0) {
-            description = description
-                .substr(0, tagPosition)
-                .replace(/\/\*\*|\s\*\s|\s*\//gm, '');
+            description = description.substr(0, tagPosition + 1);
         }
 
-        description = description.replace(/\s+/gm, ' ');
-        description = description.trim();
+        description = description.replace(/\/?\*\/?/gm, '');
+    }
 
-        return description;
+    description = description.replace(/\s+/gm, ' ');
+    description = description.trim();
 
-    } finally {
+    if (description.indexOf('(c)') >= 0) {
+        // found only a file header with the copyright line
+        return '';
+    } else {
         doclet.highchartsDescription = description;
+        return description;
     }
 }
 
