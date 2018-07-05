@@ -56,17 +56,25 @@ addEvent(Chart, 'addSeries', function (e) {
 /**
  * Calculate scale of the 3D view. That is required to
  * fit chart's 3D projection into the actual plotting area. Reported as #4933.
- * @notice This function should ideally take the plot values instead of a chart
- *         object, but since the chart object is needed for perspective it is
- *         not practical. Possible to make both getScale and perspective more
- *         logical and also immutable.
- * @param  {Object} chart Chart object
- * @param  {Number} chart.plotLeft
- * @param  {Number} chart.plotWidth
- * @param  {Number} chart.plotTop
- * @param  {Number} chart.plotHeight
- * @param  {Number} depth The depth of the chart
- * @return {Number} The scale to fit the 3D chart into the plotting area.
+ *
+ * @notice
+ * This function should ideally take the plot values instead of a chart object,
+ * but since the chart object is needed for perspective it is not practical.
+ * Possible to make both getScale and perspective more logical and also
+ * immutable.
+ *
+ * @param  {object} chart
+ *         Chart object
+ * @param  {number} chart.plotLeft
+ * @param  {number} chart.plotWidth
+ * @param  {number} chart.plotTop
+ * @param  {number} chart.plotHeight
+ *
+ * @param  {number} depth
+ *         The depth of the chart
+ *
+ * @return {number}
+ *         The scale to fit the 3D chart into the plotting area.
  */
 function getScale(chart, depth) {
     var plotLeft = chart.plotLeft,
@@ -195,7 +203,7 @@ var extendedOptions = {
             /**
              * Wether to render the chart using the 3D functionality.
              *
-             * @type {Boolean}
+             * @type {boolean}
              * @default false
              * @since 4.0
              * @product highcharts
@@ -205,7 +213,7 @@ var extendedOptions = {
             /**
              * One of the two rotation angles for the chart.
              *
-             * @type {Number}
+             * @type {number}
              * @default 0
              * @since 4.0
              * @product highcharts
@@ -215,7 +223,7 @@ var extendedOptions = {
             /**
              * One of the two rotation angles for the chart.
              *
-             * @type {Number}
+             * @type {number}
              * @default 0
              * @since 4.0
              * @product highcharts
@@ -225,7 +233,7 @@ var extendedOptions = {
             /**
              * The total depth of the chart.
              *
-             * @type {Number}
+             * @type {number}
              * @default 100
              * @since 4.0
              * @product highcharts
@@ -236,7 +244,7 @@ var extendedOptions = {
              * Whether the 3d box should automatically adjust to the chart plot
              * area.
              *
-             * @type {Boolean}
+             * @type {boolean}
              * @default true
              * @since 4.2.4
              * @product highcharts
@@ -249,7 +257,7 @@ var extendedOptions = {
              * effect in column and scatter charts. It is not used for 3D pie
              * charts.
              *
-             * @type {Number}
+             * @type {number}
              * @default 100
              * @since 4.0
              * @product highcharts
@@ -261,7 +269,7 @@ var extendedOptions = {
              * edge.
              *
              * @validvalue [null, "auto"]
-             * @type {String}
+             * @type {string}
              * @since 5.0.12
              * @product highcharts
              */
@@ -289,14 +297,18 @@ var extendedOptions = {
                 /**
                  * The bottom of the frame around a 3D chart.
                  *
+                 * @type {Highcharts.Chart3DFrameItemOptions}
+                 * @typedesc Options for a frame around a 3D chart.
+                 *
                  * @since 4.0
                  * @product highcharts
                  */
+                bottom: {},
 
                 /**
                  * The color of the panel.
                  *
-                 * @type {Color}
+                 * @type {Highcharts.ColorString}
                  * @default transparent
                  * @since 4.0
                  * @product highcharts
@@ -306,7 +318,7 @@ var extendedOptions = {
                 /**
                  * The thickness of the panel.
                  *
-                 * @type {Number}
+                 * @type {number}
                  * @default 1
                  * @since 4.0
                  * @product highcharts
@@ -319,19 +331,14 @@ var extendedOptions = {
                  * and `"default"` to display faces behind the data based on the
                  * axis layout, ignoring the point of view.
                  *
+                 * @type {string|boolean}
                  * @validvalue ["default", "auto", true, false]
-                 * @type {Boolean|String}
                  * @sample {highcharts} highcharts/3d/scatter-frame/ Auto frames
                  * @default default
                  * @since 5.0.12
                  * @product highcharts
                  * @apioption chart.options3d.frame.bottom.visible
                  */
-
-                /**
-                 * The bottom of the frame around a 3D chart.
-                 */
-                bottom: {},
 
                 /**
                  * The top of the frame around a 3D chart.
@@ -1692,26 +1699,29 @@ H.Fx.prototype.matrixSetter = function () {
  *
  * @since 4.0
  * @product highcharts
+ * @deprecated
  * @apioption chart.options3d.frame.side
  */
 
 /**
  * The color of the panel.
  *
- * @type {Color}
+ * @type {Highcharts.ColorString}
  * @default transparent
  * @since 4.0
  * @product highcharts
+ * @deprecated
  * @apioption chart.options3d.frame.side.color
  */
 
 /**
  * The thickness of the panel.
  *
- * @type {Number}
+ * @type {number}
  * @default 1
  * @since 4.0
  * @product highcharts
+ * @deprecated
  * @apioption chart.options3d.frame.side.size
  */
 
