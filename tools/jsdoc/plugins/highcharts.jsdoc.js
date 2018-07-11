@@ -643,6 +643,7 @@ exports.astNodeVisitor = {
 };
 
 exports.handlers = {
+
     beforeParse: function (e) {
         var palette = getPalette(hcRoot + '/css/highcharts.scss');
 
@@ -655,8 +656,13 @@ exports.handlers = {
             );
         });
 
-        var match = e.source.match(/\s\*\/[\s]+\}/g);
-        if (match) {
+        var match = e.source.match(
+            /(\s*)\/\*\*(?:\1 \*[^\n]*)+\1 \*\/[\s]+\}/g
+        );
+        if (match && match.some(m =>
+                m.indexOf('@apioption') === -1 &&
+                m.indexOf('@name') === -1
+        )) {
             console.log(
 `Warning: Detected ${match.length} cases of a comment followed by } in
 ${e.filename}.
