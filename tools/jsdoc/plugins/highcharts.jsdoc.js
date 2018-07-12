@@ -61,14 +61,6 @@ function sortProperties(node) {
 
     let pointer = {};
 
-    if (node.meta) {
-        if (node.meta.fullname) {
-            node.meta = { fullname: node.meta.fullname };
-        } else {
-            node.meta = {};
-        }
-    }
-
     keys.forEach(key => {
         pointer[key] = node[key];
         delete node[key];
