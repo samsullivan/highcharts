@@ -152,6 +152,7 @@ function getClearName (name) {
             .replace('~<anonymous>~', '~')
             .replace('~<anonymous>', '')
             .replace('<anonymous>~', '')
+            .replace('~', '.')
             .replace('#', '.');
     }
 }
@@ -303,12 +304,6 @@ function getName (doclet) {
 
     try {
 
-        if (doclet.augments &&
-            doclet.augments.length > 0
-        ) {
-            name = (doclet.augments[0] + '.' + doclet.name);
-        }
-
         if (name.indexOf('H.') === 0) {
             name = name.substr(2);
         } else if (name === 'H') {
@@ -438,7 +433,11 @@ function getTypes (doclet) {
     return types.map(name => {
         switch(name) {
             default:
-                return name;
+                if (name.indexOf('Highcharts') === 0) {
+                    return name;
+                } else {
+                    return 'Highcharts.' + name;
+                }
             case 'Boolean':
             case 'Function':
             case 'Number':
@@ -447,7 +446,7 @@ function getTypes (doclet) {
             case 'Symbol':
                 return name.toLowerCase();
             case 'Color':
-                return 'ColorString';
+                return 'Highcharts.ColorString';
         }
     });
 }
@@ -476,10 +475,13 @@ function getUniqueArray(array1, array2) {
 
 /**
  * Removes nodes without doclet from the tree.
+ *
  * @param {Node} node 
- * Root node.
+ *        Root node.
+ *
+ * @return {void}
  */
-function finalizeNodes (node) {
+function filterNodes (node) {
 
     let children = (node.children || {});
 
@@ -490,13 +492,58 @@ function finalizeNodes (node) {
             if (!children[childName].doclet) {
                 delete children[childName];
             } else {
-                finalizeNodes(children[childName]);
+                filterNodes(children[childName]);
             }
         });
 
     if (Object.keys(children).length === 0) {
         delete node.children;
     }
+}
+
+/**
+ * Sort keys in a node.
+ *
+ * @param  {any} node
+ *         The node to sort.
+ *
+ * @return {void}
+ */
+function sortNodes(node) {
+
+    if (!node) {
+        return;
+    }
+
+    if (node instanceof Array) {
+        let slice = node.slice();
+        node.length = 0;
+        node.push(...slice);
+        node.forEach(sortNodes)
+    }
+
+    if (node.constructor !== Object) {
+        return;
+    }
+
+    let keys = Object.keys(node).sort();
+
+    if (keys.length === 0) {
+        return;
+    }
+
+    let pointer = {};
+
+    keys.forEach(key => {
+        pointer[key] = node[key];
+        delete node[key];
+    });
+
+    keys.forEach(key => {
+        node[key] = pointer[key];
+        sortNodes(node[key]);
+    });
+
 }
 
 /**
@@ -667,7 +714,7 @@ function addTypeDef (doclet) {
 
         propertyDoclet.comment = propertyDoclet.description;
         propertyDoclet.kind = 'member';
-        propertyDoclet.longname = (name + '#' + propertyDoclet.name);
+        propertyDoclet.longname = (name + '.' + propertyDoclet.name);
         propertyDoclet.meta = doclet.meta;
         propertyDoclet.scope = 'inner';
 
@@ -801,7 +848,8 @@ function fileComplete (e) {
  */
 function processingComplete (e) {
 
-    finalizeNodes(namespace);
+    filterNodes(namespace);
+    sortNodes(namespace);
 
     fs.writeFileSync(
         path.join(rootPath, 'tree-namespace.json'),
@@ -820,9 +868,48 @@ function processingComplete (e) {
  */
 exports.defineTags = function (dictionary) {
 
+    dictionary.defineTag('apioption', {
+        mustHaveValue: true,
+        onTagged: (doclet, tag) => {
+            doclet.kind = 'member';
+            doclet.name = tag.value;
+            doclet.longname = 'Highcharts.Options.' + tag.value;
+            let dotPosition = doclet.longname.lastIndexOf('.');
+            if (dotPosition > -1) {
+                doclet.name = doclet.longname.substr(dotPosition + 1);
+                doclet.memberof = doclet.longname.substr(0, dotPosition);
+            }
+        }
+    });
+
+    dictionary.defineTag('optionparent', {
+        mustHaveValue: false,
+        mustNotHaveValue: false,
+        onTagged: (doclet, tag) => {
+            doclet.name = 'Options';
+            doclet.longname = 'Highcharts.Options';
+            if (tag.value) {
+                doclet.name = tag.value;
+                doclet.longname += '.' + tag.value;
+            }
+            let dotPosition = doclet.longname.lastIndexOf('.');
+            if (dotPosition > -1) {
+                doclet.name = doclet.longname.substr(dotPosition + 1);
+                doclet.memberof = doclet.longname.substr(0, dotPosition);
+            }
+        }
+    });
+
     dictionary.defineTag('private', {
+        mustNotHaveValue: true,
         onTagged: (doclet) => doclet.ignore = true
     });
+
+    dictionary.defineTag('product', {
+        mustHaveValue: true,
+        onTagged: (doclet, tag) => doclet.product = tag.value
+    });
+
 };
 
 /**
