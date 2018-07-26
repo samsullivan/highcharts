@@ -33,8 +33,10 @@ var H = Highcharts,
  * property.
  *
  * @class
+ *
  * @param  {Chart} chart
  *         The Chart instance.
+ *
  * @param  {Options} options
  *         The root options object. The pointer uses options from the chart and
  *         tooltip structures.
@@ -97,23 +99,26 @@ Highcharts.Pointer.prototype = {
     },
 
     /**
-     * @typedef  {Object} PointerEvent
-     *           A native browser mouse or touch event, extended with position
-     *           information relative to the {@link Chart.container}.
-     * @property {Number} chartX
+     * A native browser mouse or touch event, extended with position information
+     * relative to the {@link Chart.container}.
+     *
+     * @typedef  {object} PointerEvent
+     *
+     * @property {number} chartX
      *           The X coordinate of the pointer interaction relative to the
      *           chart.
-     * @property {Number} chartY
+     *
+     * @property {number} chartY
      *           The Y coordinate of the pointer interaction relative to the
      *           chart.
-     *
      */
+
     /**
      * Takes a browser event object and extends it with custom Highcharts
      * properties `chartX` and `chartY` in order to work on the internal
      * coordinate system.
      *
-     * @param  {Object} e
+     * @param  {object} e
      *         The event object in standard browsers.
      *
      * @return {PointerEvent}
@@ -142,8 +147,7 @@ Highcharts.Pointer.prototype = {
      * Get the click position in terms of axis values.
      *
      * @param  {PointerEvent} e
-     *         A pointer event, extended with `chartX` and `chartY`
-     *         properties.
+     *         A pointer event, extended with `chartX` and `chartY` properties.
      */
     getCoordinates: function (e) {
         var coordinates = {
@@ -159,20 +163,33 @@ Highcharts.Pointer.prototype = {
         });
         return coordinates;
     },
+
+    /**
+     * Chart coordinates of a pointer.
+     *
+     * @typedef {object} ChartCoordinates
+     *
+     * @property {number} chartX
+     *           X coordinate in the chart.
+     *
+     * @property {number} chartY
+     *           Y coordinate in the chart.
+     */
     /**
      * Finds the closest point to a set of coordinates, using the k-d-tree
      * algorithm.
      *
      * @param  {Array<Series>} series
      *         All the series to search in.
+     *
      * @param  {boolean} shared
      *         Whether it is a shared tooltip or not.
-     * @param  {object} coordinates
-     *         Chart coordinates of the pointer.
-     * @param  {number} coordinates.chartX
-     * @param  {number} coordinates.chartY
      *
-     * @return {Point|undefined} The point closest to given coordinates.
+     * @param  {ChartCoordinates} coordinates
+     *         Chart coordinates of the pointer.
+     *
+     * @return {Point|undefined}
+     *         The point closest to given coordinates.
      */
     findNearestKDPoint: function (series, shared, coordinates) {
         var closest,
@@ -261,20 +278,23 @@ Highcharts.Pointer.prototype = {
      *
      * @private
      *
-     * @param  {undefined|Point} existingHoverPoint
+     * @param  {Point|undefined} existingHoverPoint
      *         The point currrently beeing hovered.
-     * @param  {undefined|Series} existingHoverSeries
+     *
+     * @param  {Series|undefined} existingHoverSeries
      *         The series currently beeing hovered.
+     *
      * @param  {Array<Series>} series
      *         All the series in the chart.
+     *
      * @param  {boolean} isDirectTouch
      *         Is the pointer directly hovering the point.
+     *
      * @param  {boolean} shared
      *         Whether it is a shared tooltip or not.
-     * @param  {object} coordinates
+     *
+     * @param  {ChartCoordinates} coordinates
      *         Chart coordinates of the pointer.
-     * @param  {number} coordinates.chartX
-     * @param  {number} coordinates.chartY
      *
      * @return {object}
      *         Object containing resulting hover data.
@@ -485,7 +505,7 @@ Highcharts.Pointer.prototype = {
      * Reset the tracking by hiding the tooltip, the hover series state and the
      * hover point
      *
-     * @param allowMove {Boolean}
+     * @param {boolean} allowMove
      *        Instead of destroying the tooltip altogether, allow moving it if
      *        possible.
      */
@@ -933,10 +953,11 @@ Highcharts.Pointer.prototype = {
      *
      * @param  {SVGDOMElement|HTMLDOMElement} element
      *         The element to investigate.
-     * @param  {String} className
+     *
+     * @param  {string} className
      *         The class name to look for.
      *
-     * @return {Boolean}
+     * @return {boolean}
      *         True if either the element or one of its parents has the given
      *         class name.
      */
