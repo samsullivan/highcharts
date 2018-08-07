@@ -17648,7 +17648,7 @@
             inverted = chart.inverted,
             plotX = pick(point.plotX, -9999),
             plotY = pick(point.plotY, -9999),
-            bBox = dataLabel.getBBox(),
+            bBox = dataLabel.getBBox(true),
             baseline = chart.renderer.fontMetrics(options.style.fontSize).b,
             rotCorr, // rotation correction
             // Math.round for rounding errors (#2683), alignTo to allow column labels (#2700)
